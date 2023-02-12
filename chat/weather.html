@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather and Geolocation Example</title>
+  <script>
+    // Check if the browser supports the Geolocation API
+    if (navigator.geolocation) {
+      // Get the user's current position
+      navigator.geolocation.getCurrentPosition(showWeather);
+    } else {
+      // If the browser does not support the Geolocation API, show an error message
+      document.write("Geolocation is not supported by this browser.");
+    }
+
+    // Function to show the weather for the user's location
+    function showWeather(position) {
+      // Get the user's latitude and longitude
+      var lat = position.coords.latitude;
+      var lon = position.coords.longitude;
+
+      // Your OpenWeatherMap API key
+      var apiKey = "89808edc1df533a011f73eefb03cabb4";
+
+      // The API URL with the API key and latitude and longitude
+      var weatherApiUrl = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
+
+      // Get the weather data from the API
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", weatherApiUrl, true);
+      xhr.send();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          // Parse the JSON data
+          var weatherData = JSON.parse(xhr.responseText);
+
+          // Get the temperature in Kelvin
+          var temperature = weatherData.main.temp;
+
+          // Convert the temperature to Celsius
+          var temperatureCelsius = temperature - 273.15;
+
+          // Round the temperature to 1 decimal place
+          temperatureCelsius = Math.round(temperatureCelsius * 10) / 10;
+
+          // Get the weather description
+          var description = weatherData.weather[0].description;
+
+          // Output the temperature and description
+          document.write("The current temperature in your location is " + temperatureCelsius + "°C with " + description + ".");
+        }
+      };
+    }
+  </script>
+</head>
+<body>
+  <p>Loading weather...</p>
+</body>
+</html>

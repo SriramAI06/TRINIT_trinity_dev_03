@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="plant_recommendation.css">
+    <title>Plant Recommendations</title>
+  </head>
+  <body>
+    <h1>Plant Recommendations for Your Location</h1>
+
+    <!-- Add a form for the user to input their location -->
+    <form>
+      <label for="location">Enter Your Exact Location:</label>
+      <input type="text" id="location" name="location">
+      <input type="submit" value="Submit">
+    </form>
+
+    <!-- Add a section to display the recommended plants based on the user's location -->
+    <section id="recommendations">
+      <!-- JavaScript code to determine the recommended plants based on the user's location -->
+      <script>
+        // Get the user's location from the form input
+        const location = document.querySelector("#location").value;
+
+        // Determine the recommended plants based on the user's location
+        let recommendedPlants;
+        if (location === "Chennai") {
+          recommendedPlants = "Chysanthemum,Rose,Gerbera,Jasmine,Ixora,orchid,Petunia,Anthurium.";
+        } else if (location === "Miami") {
+          recommendedPlants = "Cocoplum, Sea Grape, Thatch Palm";
+        } else {
+          recommendedPlants = "Sorry, we don't have recommendations for your location.";
+        }
+
+        // Display the recommended plants
+        document.querySelector("#recommendations").innerHTML = recommendedPlants;
+      </script>
+    </section>
+  </body>
+</html>
